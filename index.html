@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La & Co — Премиальная косметология</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=Playball&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { dark: '#121212', card: '#1E1E1E', gold: '#E6C27A', text: '#E5E5E5' },
+                    fontFamily: { sans: ['Manrope', 'sans-serif'], script: ['Playball', 'cursive'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #121212; color: #E5E5E5; scroll-behavior: smooth; }
+        .glass { background: rgba(30, 30, 30, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(230, 194, 122, 0.2); }
+        .glow { background: radial-gradient(circle, rgba(230,194,122,0.15) 0%, rgba(18,18,18,0) 70%); }
+        .hover-gold:hover { border-color: #E6C27A; box-shadow: 0 0 20px rgba(230, 194, 122, 0.1); }
+        
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; }
+        .faq-item.active .faq-answer { max-height: 300px; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+        
+        .map-bg {
+            background-color: #1A1A1A;
+            background-image: linear-gradient(#2A2A2A 1px, transparent 1px), linear-gradient(90deg, #2A2A2A 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .pin-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(230, 194, 122, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(230, 194, 122, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(230, 194, 122, 0); }
+        }
+        
+        .clip-path-slider { clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%); }
+        .slider-handle:active { cursor: grabbing; }
+        .slider-handle:focus { outline: 2px solid #E6C27A; outline-offset: 2px; }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- ========================================== -->
+    <!-- БЛОК 01: HERO (Первый экран)               -->
+    <!-- ========================================== -->
+    <section class="relative min-h-screen flex items-center">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover opacity-20" alt="Interior">
+            <div class="absolute inset-0 bg-gradient-to-r from-dark via-dark/90 to-transparent"></div>
+        </div>
+        <div class="absolute top-1/2 left-1/4 w-[500px] h-[500px] glow rounded-full -translate-y-1/2 -translate-x-1/2 z-0"></div>
+
+        <div class="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center pt-20">
+            <div>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-[1px] bg-gold"></div>
+                    <span class="text-gold tracking-widest text-sm uppercase">La & Co by Svetlana Vlasova</span>
+                </div>
+                <h1 class="text-5xl lg:text-7xl font-extrabold leading-tight mb-6">
+                    Врачебная косметология и <span class="text-gold">Candela</span> GentleMax Pro
+                </h1>
+                <p class="text-lg text-gray-400 mb-10 max-w-lg">
+                    12 лет практики. Лицензия Минздрава. Премиальное оборудование на Ходынском бульваре.
+                </p>
+                <div class="flex items-center gap-6 text-sm text-gray-300">
+                    <div class="flex items-center gap-2"><svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Диагностика</div>
+                    <div class="flex items-center gap-2"><svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Тест-зона</div>
+                    <div class="flex items-center gap-2 font-bold text-white text-lg">0 ₽</div>
+                </div>
+            </div>
+
+            <div class="glass p-8 lg:p-10 rounded-2xl max-w-md w-full ml-auto hover-gold transition duration-500">
+                <h3 class="text-2xl font-bold mb-2">Запись на диагностику</h3>
+                <p class="text-sm text-gray-400 mb-6">Подберем протокол без навязывания курса</p>
+                <form class="space-y-4">
+                    <input type="text" placeholder="Ваше имя" class="w-full bg-dark/50 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition" required>
+                    <input type="tel" placeholder="Телефон" class="w-full bg-dark/50 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition" required>
+                    <select class="w-full bg-dark/50 border border-gray-700 rounded-lg px-4 py-3 text-gray-400 focus:outline-none focus:border-gold transition">
+                        <option>Лазерная эпиляция</option>
+                        <option>Косметология</option>
+                        <option>Не знаю, нужна консультация</option>
+                    </select>
+                    <button type="submit" class="w-full bg-gold text-dark font-bold py-4 rounded-lg hover:bg-white transition duration-300">
+                        Записаться
+                    </button>
+                    <p class="text-xs text-center text-gray-500 mt-4">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- БЛОК 02: TRUST BAR (Лента доверия)         -->
+    <!-- ========================================== -->
+    <section class="border-y border-gray-800 bg-[#161616] py-6">
+        <div class="container mx-auto px-6 flex flex-wrap justify-between items-center gap-6 text-sm font-semibold text-gray-400">
+            <div class="flex items-center gap-2"><svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Лицензия Л041-01137</div>
+            <div class="flex items-center gap-2"><svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Candela GentleMax Pro, США, 2022</div>
+            <div class="flex items-center gap-2"><svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg> Врач-дерматовенеролог, 12+ лет</div>
+            <div class="flex items-center gap-2"><svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg> 4.9 на Яндекс.Картах (84 отзыва)</div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- БЛОК 03: ABOUT (О враче-амбассадоре)       -->
+    <!-- ========================================== -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative">
+                <div class="absolute inset-0 border-2 border-gold rounded-2xl translate-x-4 translate-y-4"></div>
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop" alt="Врач" class="relative rounded-2xl z-10 w-full object-cover h-[600px]">
+            </div>
+            <div>
+                <h2 class="text-4xl font-bold mb-6">Ваш протокол ведёт врач,<br>а не администратор</h2>
+                <p class="text-gold font-script text-4xl mb-6">Светлана Власова</p>
+                <p class="text-gray-400 mb-8 leading-relaxed">
+                    Дерматовенеролог, косметолог. Я не продаю курсы, я подбираю то, что нужно именно вашей коже. За 12 лет практики через мои руки прошли тысячи процедур. Безопасность и эстетика — мои главные приоритеты.
+                </p>
+                <div class="grid grid-cols-2 gap-6 border-t border-gray-800 pt-8">
+                    <div><span class="block text-3xl font-bold text-white">12+</span><span class="text-sm text-gray-500">Лет стажа</span></div>
+                    <div><span class="block text-3xl font-bold text-white">5000+</span><span class="text-sm text-gray-500">Процедур</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- БЛОК 04: COMFORT (Антистрах "больно")      -->
+    <!-- ========================================== -->
+    <section class="py-24 bg-[#161616] border-y border-gray-800">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-4">Комфорт, а не терпение</h2>
+            <p class="text-gray-400 mb-16">Три уровня защиты вашей кожи во время процедуры</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass p-8 rounded-xl hover-gold transition">
+                    <div class="w-16 h-16 mx-auto bg-dark rounded-full flex items-center justify-center text-gold mb-6 shadow-[0_0_15px_rgba(230,194,122,0.3)]"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg></div>
+                    <h3 class="text-xl font-bold mb-3">Сапфировое охлаждение</h3>
+                    <p class="text-gray-400 text-sm">DCD-система охлаждает эпидермис до -5°C за миллисекунды до вспышки.</p>
+                </div>
+                <div class="glass p-8 rounded-xl hover-gold transition">
+                    <div class="w-16 h-16 mx-auto bg-dark rounded-full flex items-center justify-center text-gold mb-6 shadow-[0_0_15px_rgba(230,194,122,0.3)]"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+                    <h3 class="text-xl font-bold mb-3">Динамический импульс</h3>
+                    <p class="text-gray-400 text-sm">Энергия распределяется волнами, не вызывая перегрева и ожогов.</p>
+                </div>
+                <div class="glass p-8 rounded-xl hover-gold transition">
+                    <div class="w-16 h-16 mx-auto bg-dark rounded-full flex items-center justify-center text-gold mb-6 shadow-[0_0_15px_rgba(230,194,122,0.3)]"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg></div>
+                    <h3 class="text-xl font-bold mb-3">Аппликационная анестезия</h3>
+                    <p class="text-gray-400 text-sm">Крем Эмла за 40 минут до процедуры на зонах повышенной чувствительности.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- БЛОК 05: SERVICES (Табы услуг и цены)      -->
+    <!-- ========================================== -->
+    <section class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-4xl font-bold mb-2">Услуги и цены</h2>
+                    <p class="text-gray-400">Прозрачное ценообразование без скрытых платежей</p>
+                </div>
+                <div class="flex gap-4 mt-6 md:mt-0">
+                    <button class="tab-btn px-6 py-2 rounded-full border border-gold text-gold font-bold" data-target="laser">Лазерная эпиляция</button>
+                    <button class="tab-btn px-6 py-2 rounded-full border border-gray-700 text-gray-400 hover:border-gray-500 transition" data-target="cosmetology">Косметология</button>
+                </div>
+            </div>
+
+            <div id="tab-laser" class="tab-content grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-card border border-gray-800 p-6 rounded-xl hover:border-gold transition group cursor-pointer">
+                    <div class="flex justify-between items-start mb-4"><h3 class="font-bold text-lg">Глубокое бикини</h3><span class="text-gold text-xl group-hover:scale-110 transition">✦</span></div>
+                    <p class="text-sm text-gray-500 mb-6">Комфортная эпиляция с сапфировым охлаждением</p>
+                    <div class="flex justify-between items-end"><span class="text-2xl font-bold">5 500 ₽</span><span class="text-xs text-gold border border-gold/30 px-2 py-1 rounded">В курсе 5+</span></div>
+                </div>
+                <div class="bg-card border border-gray-800 p-6 rounded-xl hover:border-gold transition group cursor-pointer">
+                    <div class="flex justify-between items-start mb-4"><h3 class="font-bold text-lg">Подмышки</h3><span class="text-gold text-xl group-hover:scale-110 transition">✦</span></div>
+                    <p class="text-sm text-gray-500 mb-6">Быстро, эффективно, без раздражения</p>
+                    <div class="flex justify-between items-end"><span class="text-2xl font-bold">2 500 ₽</span><span class="text-xs text-gold border border-gold/30 px-2 py-1 rounded">В курсе 5+</span></div>
+                </div>
+                <div class="bg-card border border-gray-800 p-6 rounded-xl hover:border-gold transition group cursor-pointer">
+                    <div class="flex justify-between items-start mb-4"><h3 class="font-bold text-lg">Ноги полностью</h3><span class="text-gold text-xl group-hover:scale-110 transition">✦</span></div>
+                    <p class="text-sm text-gray-500 mb-6">Гладкость от бедра до пальцев</p>
+                    <div class="flex justify-between items-end"><span class="text-2xl font-bold">9 500 ₽</span><span class="text-xs text-gold border border-gold/30 px-2 py-1 rounded">В курсе 5+</span></div>
+                </div>
+                <div class="bg-card border border-gray-800 p-6 rounded-xl hover:border-gold transition group cursor-pointer">
+                    <div class="flex justify-between items-start mb-4"><h3 class="font-bold text-lg">Верхняя губа</h3><span class="text-gold text-xl group-hover:scale-110 transition">✦</span></div>
+                    <p class="text-sm text-gray-500 mb-6">Деликатная зона, мгновенный результат</p>
+                    <div class="flex justify-between items-end"><span class="text-2xl font-bold">2 500 ₽</span></div>
+                </div>
+            </div>
+
+            <div id="tab-cosmetology" class="tab-content grid md:grid-cols-2 lg:grid-cols-4 gap-6 hidden">
+                <div class="bg-card border border-gray-800 p-6 rounded-xl hover:border-gold transition group cursor-pointer">
+                    <div class="flex justify-between items-start mb-4"><h3 class="font-bold text-lg">Чистка лица</h3><span class="text-gold text-xl group-hover:scale-110 transition">✦</span></div>
+                    <p class="text-sm text-gray-500 mb-6">Комбинированная чистка у врача-косметолога</p>
+                    <div class="flex justify-between items-end"><span class="text-2xl font-bold">4 000 ₽</span></div>
+                </div>
+                <div class="bg-card border border-gray-800 p-6 rounded-xl hover:border-gold transition group cursor-pointer">
+                    <div class="flex justify-between items-start mb-4"><h3 class="font-bold text-lg">Биоревитализация</h3><span class="text-gold text-xl group-hover:scale-110 transition">✦</span></div>
+                    <p class="text-sm text-gray-500 mb-6">Глубокое увлажнение и восстановление</p>
+                    <div class="flex justify-between items-end"><span class="text-2xl font-bold">8 000 ₽</span></div>
+                </div>
+                <div class="bg-card border border-gray-800 p-6 rounded-xl hover:border-gold transition group cursor-pointer">
+                    <div class="flex justify-between items-start mb-4"><h3 class="font-bold text-lg">Ботулинотерапия</h3><span class="text-gold text-xl group-hover:scale-110 transition">✦</span></div>
+                    <p class="text-sm text-gray-500 mb-6">Коррекция мимических морщин</p>
+                    <div class="flex justify-between items-end"><span class="text-2xl font-bold">По зонам</span></div>
+                </div>
+                <div class="bg-card border border-gray-800 p-6 rounded-xl hover:border-gold transition group cursor-pointer">
+                    <div class="flex justify-between items-start mb-4"><h3 class="font-bold text-lg">Пилинг</h3><span class="text-gold text-xl group-hover:scale-110 transition">✦</span></div>
+                    <p class="text-sm text-gray-500 mb-6">Обновление кожи, выравнивание тона</p>
+                    <div class="flex justify-between items-end"><span class="text-2xl font-bold">5 000 ₽</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- БЛОК 06: CALCULATOR (Калькулятор курса)    -->
+    <!-- ========================================== -->
+    <section class="py-24 bg-dark relative">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Курс выгоднее разовой вспышки</h2>
+                <p class="text-gray-400">Рассчитайте стоимость вашего курса и получите скидку 15% при оплате 5+ сеансов.</p>
+            </div>
+            <div class="glass p-8 md:p-12 rounded-2xl border border-gray-800">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-4 uppercase tracking-wider">Выберите зону</label>
+                        <select id="calc-zone" class="w-full bg-[#1A1A1A] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold mb-8">
+                            <option value="5500">Глубокое бикини (5 500 ₽)</option>
+                            <option value="2500">Подмышки (2 500 ₽)</option>
+                            <option value="9500">Ноги полностью (9 500 ₽)</option>
+                        </select>
+                        
+                        <label class="block text-sm text-gray-400 mb-4 uppercase tracking-wider flex justify-between">
+                            <span>Количество сеансов</span>
+                            <span id="calc-sessions-display" class="text-gold font-bold">5</span>
+                        </label>
+                        <input type="range" id="calc-sessions" min="1" max="10" value="5" class="w-full accent-gold bg-gray-700 h-1 rounded-lg appearance-none cursor-pointer">
+                        
+                        <p class="text-xs text-gray-500 mt-8 leading-relaxed">
+                            * Долговременное снижение роста волос до 80–90% после полного курса. Результат индивидуален и зависит от гормонального фона.
+                        </p>
+                    </div>
+                    <div class="bg-[#1A1A1A] p-8 rounded-xl border border-gray-800 flex flex-col justify-center text-center">
+                        <p class="text-gray-400 mb-2">Стоимость курса (<span id="calc-total-sessions-text">5</span> сеансов)</p>
+                        
+                        <span id="calc-old-price" class="text-gray-500 line-through text-xl mb-1 hidden"></span>
+                        
+                        <p id="calc-total-price" class="text-5xl font-bold text-white mb-2">23 375 ₽</p>
+                        <p id="calc-discount" class="text-gold mb-6">Вы экономите 4 125 ₽</p>
+                        <button class="w-full bg-gold text-dark font-bold py-4 rounded-lg hover:bg-white transition duration-300">Зафиксировать курс</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- БЛОК 07: FAQ (Частые вопросы-аккордеон)    -->
+    <!-- ========================================== -->
+    <section class="py-24 bg-[#161616] border-y border-gray-800">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="text-4xl font-bold mb-12 text-center">Частые вопросы</h2>
+            <div class="space-y-4">
+                <div class="faq-item bg-[#1A1A1A] border border-gray-800 rounded-xl overflow-hidden transition-colors hover:border-gray-700">
+                    <div class="faq-question flex justify-between items-center p-6 cursor-pointer select-none font-bold text-lg hover:text-gold transition">
+                        <span>«А это больно? Я в прошлый раз чуть не умерла»</span>
+                        <svg class="faq-icon w-5 h-5 text-gold transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer px-6 text-gray-400">
+                        <p class="pb-6">Аппарат Candela GentleMax Pro оснащен системой сапфирового охлаждения DCD (до -5°C), которая защищает кожу. Плюс мы используем аппликационную анестезию (Эмла) за 40 минут до процедуры на чувствительных зонах.</p>
+                    </div>
+                </div>
+                <div class="faq-item bg-[#1A1A1A] border border-gray-800 rounded-xl overflow-hidden transition-colors hover:border-gray-700">
+                    <div class="faq-question flex justify-between items-center p-6 cursor-pointer select-none font-bold text-lg hover:text-gold transition">
+                        <span>«У меня рыжий/седой волос — мне поможет?»</span>
+                        <svg class="faq-icon w-5 h-5 text-gold transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer px-6 text-gray-400">
+                        <p class="pb-6">Александритовый лазер (755 нм) работает на темном пигменте. Для светлых и рыжих волос мы используем Nd:YAG (1064 нм) или подбираем альтернативный протокол. Честно скажем на диагностике, чего ждать.</p>
+                    </div>
+                </div>
+                <div class="faq-item bg-[#1A1A1A] border border-gray-800 rounded-xl overflow-hidden transition-colors hover:border-gray-700">
+                    <div class="faq-question flex justify-between items-center p-6 cursor-pointer select-none font-bold text-lg hover:text-gold transition">
+                        <span>«Почему 5 000, а рядом за 500?»</span>
+                        <svg class="faq-icon w-5 h-5 text-gold transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer px-6 text-gray-400">
+                        <p class="pb-6">Дешевые аппараты (часто IPL) имеют низкую мощность, что ведет к ожогам или нулевому результату. Candela — это золотой стандарт, где вы платите за безопасность и реальное сокращение волос.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- БЛОК 08: REVIEWS (Отзывы с фото)           -->
+    <!-- ========================================== -->
+    <section class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Отзывы наших клиентов</h2>
+                <div class="flex justify-center items-center gap-6 text-sm text-gray-400">
+                    <span class="flex items-center gap-1"><svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg> 4.9 Яндекс.Карты</span>
+                    <span class="flex items-center gap-1"><svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg> 4.8 2ГИС</span>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-[#1A1A1A] p-6 rounded-xl border border-gray-800">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" class="w-10 h-10 rounded-full object-cover border border-gray-700" alt="Анна">
+                        <div><p class="font-bold">Анна К.</p><p class="text-xs text-gray-500">Яндекс.Карты</p></div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">"Хожу на лазер к Светлане уже полгода. Аппарат супер, боли вообще не чувствую. Результат на лице виден уже после 3-й процедуры."</p>
+                </div>
+                <div class="bg-[#1A1A1A] p-6 rounded-xl border border-gray-800">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" class="w-10 h-10 rounded-full object-cover border border-gray-700" alt="Екатерина">
+                        <div><p class="font-bold">Екатерина М.</p><p class="text-xs text-gray-500">2ГИС</p></div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">"Очень боялась глубокого бикини. Светлана успокоила, сделала тест-зону. В итоге сделала весь курс. Атмосфера в кабинете очень расслабляющая."</p>
+                </div>
+                <div class="bg-[#1A1A1A] p-6 rounded-xl border border-gray-800">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop" class="w-10 h-10 rounded-full object-cover border border-gray-700" alt="Мария">
+                        <div><p class="font-bold">Мария С.</p><p class="text-xs text-gray-500">Instagram</p></div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">"Светлана, спасибо за мою чистую кожу! Девушки, не бойтесь, здесь работают настоящие профессионалы своего дела."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- БЛОК 09: HOW IT WORKS (Как проходит запись)-->
+    <!-- ========================================== -->
+    <section class="py-24 bg-[#161616] border-y border-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-16 text-center">От заявки до кресла — 5 минут</h2>
+            
+            <div class="grid md:grid-cols-4 gap-8 relative">
+                <div class="hidden md:block absolute top-6 left-[12.5%] right-[12.5%] h-[1px] bg-gold/30"></div>
+                
+                <div class="relative text-center">
+                    <div class="w-12 h-12 bg-dark border-2 border-gold rounded-full flex items-center justify-center text-gold font-bold text-xl mx-auto mb-6 relative z-10">1</div>
+                    <h3 class="font-bold mb-2">Заявка</h3>
+                    <p class="text-sm text-gray-400">Оставляете форму на сайте</p>
+                </div>
+                <div class="relative text-center">
+                    <div class="w-12 h-12 bg-dark border-2 border-gold rounded-full flex items-center justify-center text-gold font-bold text-xl mx-auto mb-6 relative z-10">2</div>
+                    <h3 class="font-bold mb-2">Ответ админа</h3>
+                    <p class="text-sm text-gray-400">В Telegram/WhatsApp за 5 минут</p>
+                </div>
+                <div class="relative text-center">
+                    <div class="w-12 h-12 bg-dark border-2 border-gold rounded-full flex items-center justify-center text-gold font-bold text-xl mx-auto mb-6 relative z-10">3</div>
+                    <h3 class="font-bold mb-2">Запись</h3>
+                    <p class="text-sm text-gray-400">Подбираем удобное время в YClients</p>
+                </div>
+                <div class="relative text-center">
+                    <div class="w-12 h-12 bg-dark border-2 border-gold rounded-full flex items-center justify-center text-gold font-bold text-xl mx-auto mb-6 relative z-10">4</div>
+                    <h3 class="font-bold mb-2">Визит</h3>
+                    <p class="text-sm text-gray-400">Напоминаем за сутки до приема</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- БЛОК 10: MAP (Карта и контакты)            -->
+    <!-- ========================================== -->
+    <section class="py-24">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-4xl font-bold mb-8">Как нас найти</h2>
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <svg class="w-6 h-6 text-gold mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <div>
+                            <p class="font-bold text-lg">Ходынский бульвар</p>
+                            <p class="text-gray-400">ЖК "Премиум", 1-й этаж. Вход со стороны бульвара.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <svg class="w-6 h-6 text-gold mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <div>
+                            <p class="font-bold text-lg">Парковка</p>
+                            <p class="text-gray-400">Подземный паркинг ЖК. Бесплатно для клиентов на 2 часа.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <svg class="w-6 h-6 text-gold mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <div>
+                            <p class="font-bold text-lg">Метро</p>
+                            <p class="text-gray-400">ЦСКА / Аэропорт — 7 минут пешком.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <svg class="w-6 h-6 text-gold mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <div>
+                            <p class="font-bold text-lg">Режим работы</p>
+                            <p class="text-gray-400">Ежедневно с 10:00 до 21:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="h-[400px] map-bg border border-gray-800 rounded-2xl flex items-center justify-center relative overflow-hidden group">
+                <div class="relative z-10 text-center">
+                    <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center text-dark mx-auto mb-4 pin-pulse">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </div>
+                    <p class="font-bold text-white mb-2">La & Co</p>
+                    <button class="px-6 py-2 bg-dark border border-gold text-gold rounded-lg hover:bg-gold hover:text-dark transition">Построить маршрут</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- БЛОК 11: FINAL CTA (Финальная форма)       -->
+    <!-- ========================================== -->
+    <section id="contact" class="py-24 bg-[#161616] border-t border-gray-800 relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full glow rounded-full z-0 pointer-events-none"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 max-w-4xl text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">Диагностика и тест-зона — 0 ₽</h2>
+            <p class="text-gray-400 mb-12 max-w-2xl mx-auto">Светлана лично подберет протокол именно для вашей кожи. Без навязывания курсов.</p>
+            
+            <div class="max-w-lg mx-auto bg-dark border border-gray-800 p-8 rounded-2xl shadow-2xl text-left relative min-h-[400px] flex flex-col justify-center">
+                
+                <form id="contact-form" class="space-y-4 w-full">
+                    <input type="text" placeholder="Ваше имя" class="w-full bg-[#1A1A1A] border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition" required>
+                    <input type="tel" placeholder="Телефон" class="w-full bg-[#1A1A1A] border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-gold transition" required>
+                    <select class="w-full bg-[#1A1A1A] border border-gray-700 rounded-lg px-4 py-3 text-gray-400 focus:outline-none focus:border-gold transition">
+                        <option>Удобный способ связи</option>
+                        <option>Telegram</option>
+                        <option>WhatsApp</option>
+                        <option>Звонок</option>
+                    </select>
+                    <button type="submit" class="w-full bg-gold text-dark font-bold py-4 rounded-lg hover:bg-white transition duration-300 mt-2">Записаться на диагностику</button>
+                    <p class="text-xs text-center text-gray-500 mt-4">Отвечаем в течение 5 минут в рабочее время.</p>
+                </form>
+
+                <div id="form-success" class="hidden absolute inset-0 bg-dark rounded-2xl flex flex-col items-center justify-center text-center p-8 border border-gold/30">
+                    <div class="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-10 h-10 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Заявка отправлена!</h3>
+                    <p class="text-gray-400">Администратор свяжется с вами в течение 5 минут.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- БЛОК 12: FOOTER (Подвал)                   -->
+    <!-- ========================================== -->
+    <footer class="py-12 border-t border-gray-800 text-center text-sm text-gray-500 bg-dark">
+        <div class="container mx-auto px-6">
+            <p class="mb-4 font-script text-3xl text-gold">La & Co</p>
+            <p class="mb-2">Москва, Ходынский бульвар. ЖК "Премиум"</p>
+            <p class="mb-6">ИНН 7712345678 · Лицензия Л041-01137-77/00345678</p>
+            <div class="flex justify-center gap-6 mb-6">
+                <a href="#" class="hover:text-gold transition">Telegram</a>
+                <a href="#" class="hover:text-gold transition">WhatsApp</a>
+                <a href="#" class="hover:text-gold transition">Instagram</a>
+            </div>
+            <p>© 2024 La & Co by Svetlana Vlasova. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT (Вся интерактивность)           -->
+    <!-- ========================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. ТАБЫ УСЛУГ
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => {
+                        b.classList.remove('border-gold', 'text-gold');
+                        b.classList.add('border-gray-700', 'text-gray-400');
+                    });
+                    btn.classList.remove('border-gray-700', 'text-gray-400');
+                    btn.classList.add('border-gold', 'text-gold');
+
+                    tabContents.forEach(c => c.classList.add('hidden'));
+                    const target = document.getElementById(`tab-${btn.dataset.target}`);
+                    if (target) target.classList.remove('hidden');
+                });
+            });
+
+            // 2. ЖИВОЙ КАЛЬКУЛЯТОР
+            const calcZone = document.getElementById('calc-zone');
+            const calcSessions = document.getElementById('calc-sessions');
+            const calcSessionsDisplay = document.getElementById('calc-sessions-display');
+            const calcTotalSessionsText = document.getElementById('calc-total-sessions-text');
+            const calcTotalPrice = document.getElementById('calc-total-price');
+            const calcDiscount = document.getElementById('calc-discount');
+
+            function updateCalculator() {
+                if (!calcZone || !calcSessions) return;
+                
+                const pricePerSession = parseInt(calcZone.value, 10);
+                const sessions = parseInt(calcSessions.value, 10);
+                const calcOldPrice = document.getElementById('calc-old-price');
+                
+                calcSessionsDisplay.textContent = sessions;
+                calcTotalSessionsText.textContent = sessions;
+
+                let total = pricePerSession * sessions;
+
+                if (sessions >= 5) {
+                    const discountAmount = total * 0.15;
+                    const finalPrice = total - discountAmount;
+                    
+                    calcOldPrice.textContent = `${total.toLocaleString('ru-RU')} ₽`;
+                    calcOldPrice.classList.remove('hidden');
+                    
+                    calcTotalPrice.textContent = `${Math.round(finalPrice).toLocaleString('ru-RU')} ₽`;
+                    calcDiscount.textContent = `Вы экономите ${Math.round(discountAmount).toLocaleString('ru-RU')} ₽`;
+                } else {
+                    calcOldPrice.classList.add('hidden');
+                    
+                    calcTotalPrice.textContent = `${Math.round(total).toLocaleString('ru-RU')} ₽`;
+                    calcDiscount.textContent = 'Скидка 15% при оплате от 5 сеансов';
+                }
+            }
+
+            if (calcZone && calcSessions) {
+                calcZone.addEventListener('change', updateCalculator);
+                calcSessions.addEventListener('input', updateCalculator);
+                updateCalculator();
+            }
+
+            // 3. FAQ АККОРДЕОН
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                if (question) {
+                    question.addEventListener('click', () => {
+                        faqItems.forEach(otherItem => {
+                            if (otherItem !== item) otherItem.classList.remove('active');
+                        });
+                        item.classList.toggle('active');
+                    });
+                }
+            });
+
+            // 4. ОТПРАВКА ФОРМЫ
+            const form = document.getElementById('contact-form');
+            const formSuccess = document.getElementById('form-success');
+
+            if (form && formSuccess) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const btn = form.querySelector('button[type="submit"]');
+                    
+                    btn.textContent = 'Отправка...';
+                    btn.classList.add('opacity-70', 'cursor-not-allowed');
+                    
+                    setTimeout(() => {
+                        form.classList.add('hidden');
+                        formSuccess.classList.remove('hidden');
+                    }, 1000);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
